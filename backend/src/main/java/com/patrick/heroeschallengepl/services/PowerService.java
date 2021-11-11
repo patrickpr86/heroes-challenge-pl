@@ -1,35 +1,33 @@
 package com.patrick.heroeschallengepl.services;
 
 import com.patrick.heroeschallengepl.models.Hero;
+import com.patrick.heroeschallengepl.models.Power;
 import com.patrick.heroeschallengepl.repositories.HeroRepository;
 import com.patrick.heroeschallengepl.repositories.PowerRepository;
 import java.lang.reflect.MalformedParametersException;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 
 @Service
-public class HeroService {
-
-  @Autowired
-  private HeroRepository heroRepository;
+public class PowerService {
 
   @Autowired
   private PowerRepository powerRepository;
 
 
   @Transactional(readOnly = true)
-  public Page<Hero> findAllPaged(Pageable pageable) {
-    return heroRepository.findAll(pageable);
+  public Page<Power> findAllPaged(Pageable pageable) {
+    return powerRepository.findAll(pageable);
   }
 
   @Transactional
-  public Hero findById(Long id) {
-    Optional<Hero> obj = heroRepository.findById(id);
+  public Power findById(Long id) {
+    Optional<Power> obj = powerRepository.findById(id);
     return obj.orElseThrow(() -> new MalformedParametersException("Entity not found"));
   }
 }
