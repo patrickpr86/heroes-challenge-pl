@@ -4,6 +4,8 @@ import com.patrick.heroeschallengepl.models.Hero;
 import com.patrick.heroeschallengepl.services.HeroService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +20,8 @@ public class HeroController {
   private HeroService heroService;
 
   @GetMapping
-  public ResponseEntity<List<Hero>> findAll() {
-    List<Hero> heroes = heroService.findAll();
+  public ResponseEntity<Page<Hero>> findAll(Pageable pageable) {
+    Page<Hero> heroes = heroService.findAllPaged(pageable);
     return ResponseEntity.ok(heroes);
   }
 
