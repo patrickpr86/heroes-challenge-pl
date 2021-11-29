@@ -5,8 +5,10 @@ import com.patrick.heroeschallengepl.models.Power;
 import com.patrick.heroeschallengepl.repositories.HeroRepository;
 import com.patrick.heroeschallengepl.repositories.PowerRepository;
 import java.lang.reflect.MalformedParametersException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class HeroService {
   public Hero findById(Long id) {
     Optional<Hero> obj = heroRepository.findById(id);
     return obj.orElseThrow(() -> new MalformedParametersException("Entity not found"));
+
   }
 
   public Hero create(Hero obj) {
@@ -54,5 +57,6 @@ public class HeroService {
     hero.setUniverse(obj.getUniverse());
     hero.setPowers(obj.getPowers());
     return heroRepository.save(hero);
+
   }
 }
