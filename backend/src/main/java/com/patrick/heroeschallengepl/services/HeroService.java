@@ -1,9 +1,12 @@
 package com.patrick.heroeschallengepl.services;
 
 import com.patrick.heroeschallengepl.models.Hero;
+import com.patrick.heroeschallengepl.models.Power;
 import com.patrick.heroeschallengepl.repositories.HeroRepository;
 import com.patrick.heroeschallengepl.repositories.PowerRepository;
 import java.lang.reflect.MalformedParametersException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +30,29 @@ public class HeroService {
     return heroRepository.findAll(pageable);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   public Hero findById(Long id) {
     Optional<Hero> obj = heroRepository.findById(id);
     return obj.orElseThrow(() -> new MalformedParametersException("Entity not found"));
+  }
+
+  public Hero create(Hero obj) {
+    Hero hero = new Hero();
+    hero.setName(obj.getName());
+    hero.setUniverse(obj.getUniverse());
+    hero.setPowers(obj.getPowers());
+    return heroRepository.save(hero);
+
+  }
+
+  public Hero update(Hero obj, Long id) {
+    Hero hero = new Hero();
+    hero = heroRepository.getOne(id);
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + hero.getName() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+    hero.setName(obj.getName());
+    hero.setUniverse(obj.getUniverse());
+    hero.setPowers(obj.getPowers());
+    return heroRepository.save(hero);
   }
 }
