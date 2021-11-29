@@ -38,6 +38,10 @@ public class Power implements Serializable {
   @Exclude
   private List<Hero> heroes;
 
+  public Power(String power) {
+    this.name = power;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
